@@ -1,18 +1,17 @@
 import React from "react";
-import { Row, Col, Button, Card, Avatar, PageHeader, Modal, Form, Upload, Select, Input, notification } from 'antd';
-import { PlusSquareOutlined, EditOutlined, EllipsisOutlined, SettingOutlined, UploadOutlined, ConsoleSqlOutlined, CompassOutlined } from "@ant-design/icons";
+import { Button, Modal, Form, Upload, Select, Input, notification } from 'antd';
+import { PlusSquareOutlined, UploadOutlined } from "@ant-design/icons";
 
-import products from "./products";
-
-const { Meta } = Card;
 const { Option } = Select;
 const { TextArea } = Input;
 
-class Product extends React.Component {
+const formlayout = 'vertical'
+
+class NewProduct extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            modalVisible: false,
+            modalCreateVisible: false,
             loading: false,
             category: 'Makanan',
             productName: '',
@@ -29,12 +28,11 @@ class Product extends React.Component {
         this.changeTags = this.changeTags.bind(this)
         this.changeDesc = this.changeDesc.bind(this)
         this.changePrice = this.changePrice.bind(this)
-
     }
 
     showModal() {
         this.setState({
-            modalVisible: true
+            modalCreateVisible: true
         })
     }
 
@@ -75,7 +73,7 @@ class Product extends React.Component {
 
         setTimeout(() => {
             this.setState({
-                modalVisible: false,
+                modalCreateVisible: false,
                 loading: false,
             })
             event.preventDefault();
@@ -88,7 +86,8 @@ class Product extends React.Component {
 
     cancelBtnClicked() {
         this.setState({
-            modalVisible: false,
+            modalCreateVisible: false,
+            modalPromotionVisible: false,
             loading: false
         })
     }
@@ -101,87 +100,37 @@ class Product extends React.Component {
         });
 
         return msg
-    };
+    }
 
     render() {
-        const { modalVisible, loading, ...form } = this.state
+        const { modalCreateVisible, modalPromotionVisible, loading, ...form } = this.state
         const column = {
             ...form
         }
         return (
             <div>
-                <Row>
-                    <Col span={24}>
-                        <PageHeader
-                            ghost={false}
-                            onBack={() => window.history.back()}
-                            title="Title"
-                            subTitle="This is a subtitle"
-                            extra={[
-                                <Button icon={< PlusSquareOutlined />} key="1" type="primary" onClick={this.showModal}>
-                                    New Product
-                            </Button>
-                            ]}
-                        ></PageHeader>
-                        <FormNewProduct
-                            title="Add New Product"
-                            visible={modalVisible}
-                            onSubmit={this.submitBtnClicked}
-                            onCancel={this.cancelBtnClicked}
-                            form={column}
-                            changeCategory={this.changeCategory}
-                            changeProductName={this.changeProductName}
-                            changeTags={this.changeTags}
-                            changeDesc={this.changeDesc}
-                            changePrice={this.changePrice}
-                            loading={loading}
-                        />
-                    </Col>
-                </Row>
-                <ProductList />
+                <Button icon={< PlusSquareOutlined />} key="1" type="primary" onClick={this.showModal}>
+                    New Product
+                </Button>
+                <FormNewProduct
+                    title="Add New Product"
+                    visible={modalCreateVisible}
+                    onSubmit={this.submitBtnClicked}
+                    onCancel={this.cancelBtnClicked}
+                    form={column}
+                    changeCategory={this.changeCategory}
+                    changeProductName={this.changeProductName}
+                    changeTags={this.changeTags}
+                    changeDesc={this.changeDesc}
+                    changePrice={this.changePrice}
+                    loading={loading}
+                />
             </div>
         )
     }
 }
 
-function ProductList() {
-    const colStyle = {
-        padding: '8px'
-    }
-
-    const data = products.map(item =>
-        <Col span={6} style={colStyle} key={item.id}>
-            <Card
-                cover={
-                    <img
-                        alt="example"
-                        src={item.cover}
-                    />
-                }
-                actions={[
-                    <SettingOutlined key="setting" />,
-                    <EditOutlined key="edit" />,
-                    <EllipsisOutlined key="ellipsis" />,
-                ]}
-            >
-                <Meta
-                    avatar={<Avatar src={item.avatar} />}
-                    title={item.title}
-                    description={item.description}
-                />
-            </Card>
-        </Col>
-    )
-
-    return (
-        <Row className="row-pad">
-            {data}
-        </Row>
-    )
-}
-
 function FormNewProduct(props) {
-    const formlayout = 'vertical'
     const btnLayout = {
         float: 'right'
     }
@@ -253,6 +202,4 @@ function FormNewProduct(props) {
         </Modal>
     )
 }
-
-
-export default Product
+export default NewProduct;

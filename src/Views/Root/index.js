@@ -1,8 +1,10 @@
 import React from "react"
 import Nav from "./components/Nav.jsx"
 import Sidebar from "./components/Sidebar.jsx"
-import Home from "./contents/Home.jsx"
-import Product from "./contents/Product.jsx"
+
+import Product from "./contents/Product/index"
+import Order from "./contents/Order/index";
+import Home from "./contents/Home/index";
 import { Route } from "react-router-dom"
 
 import "./Root.css"
@@ -25,6 +27,7 @@ class Root extends React.Component {
                             }}>
                             <Route exact path="/" component={Home} />
                             <Route exact path="/product" component={Product} />
+                            <Route exact path="/order" component={Order} />
                             </Content>
                     </Layout>
                 </Content>

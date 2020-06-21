@@ -1,7 +1,7 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import { Layout, Menu } from "antd"
-import { HomeOutlined, CoffeeOutlined } from "@ant-design/icons";
+import { HomeOutlined, CoffeeOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 const { Sider } = Layout;
 
 class Sidebar extends React.Component {
@@ -17,6 +17,9 @@ class Sidebar extends React.Component {
                     </Menu.Item>
                     <Menu.Item icon={<CoffeeOutlined />}>
                         <Link to="/product">Product</Link>
+                    </Menu.Item>
+                    <Menu.Item icon={<ShoppingCartOutlined />}>
+                        <Link to="/order">Order</Link>
                     </Menu.Item>
                 </Menu>
             </Sider>
