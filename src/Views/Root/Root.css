@@ -5,3 +5,8 @@
 .row-pad {
     margin-top: 50px;
 }
+
+.logo h2 {
+    color: white;
+    font-size: 16px;
+}

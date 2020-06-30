@@ -21,6 +21,9 @@ class Sidebar extends React.Component {
                     <Menu.Item icon={<ShoppingCartOutlined />}>
                         <Link to="/order">Order</Link>
                     </Menu.Item>
+                    <Menu.Item icon={<ShoppingCartOutlined />}>
+                        <Link to="/order">Logout</Link>
+                    </Menu.Item>
                 </Menu>
             </Sider>
         )
