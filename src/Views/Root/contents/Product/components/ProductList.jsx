@@ -1,14 +1,23 @@
 import React from "react";
-import products from "./products";
+import { connect } from "react-redux";
+import ProductData from "./ProductsData";
+import ProductItem from "./ProductItem";
+import ErrorBoundary from "./ProductsData";
 
-import { Row, Col, Button, Card, Avatar, Modal, Form, notification, Input, Tooltip, DatePicker } from 'antd';
-import { EditOutlined, ScissorOutlined, DeleteOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
+import { Button, Card, Avatar, Modal, Form, notification, Input, DatePicker } from 'antd';
+import { ExclamationCircleOutlined } from "@ant-design/icons";
 
 const { Meta } = Card;
 const { RangePicker } = DatePicker;
 const { confirm } = Modal
 
 const formlayout = 'vertical'
+
+const mapStateToProps = state => {
+    return {
+        products: state.products
+    }
+}
 
 class ProductList extends React.Component {
     constructor(props) {
@@ -62,45 +71,29 @@ class ProductList extends React.Component {
     }
 
     render() {
-        const colStyle = {
-            padding: '8px'
-        }
-
         const { modalVisible, loading } = this.state
-
-        const data = products.map(item =>
-            <Col span={6} style={colStyle} key={item.id}>
-                <Card
-                    cover={
-                        <img
-                            alt="example"
-                            src={item.cover}
-                        />
-                    }
-                    actions={[
-                        <Tooltip placement="bottom" title="Promtion">
-                            <ScissorOutlined onClick={this.showModal} />
-                        </Tooltip>,
-                        <Tooltip placement="bottom" title="Edit">
-                            <EditOutlined />
-                        </Tooltip>,
-                        <Tooltip placement="bottom" title="Delete">
-                            <DeleteOutlined onClick={showDeleteConfirm} />
-                        </Tooltip>
-                    ]}
-                >
-                    <Meta
-                        avatar={<Avatar src={item.avatar} />}
-                        title={item.title}
-                        description={item.description}
-                    />
-                </Card>
-            </Col>
-        )
-
+        const { products } = this.props
+        
         return (
-            <Row className="row-pad">
-                {data}
+            <div>
+                <ErrorBoundary>
+                    <ProductData>
+                        {
+                            products.map(item => {
+                                return (
+                                    <ProductItem
+                                        id={item.id}
+                                        cover={item.cover}
+                                        title={item.title}
+                                        description={item.description}
+                                        onClickPromotion={this.showModal}
+                                        onClickDelete={showDeleteConfirm}
+                                    />
+                                )
+                            })
+                        }
+                    </ProductData>
+                </ErrorBoundary>
                 <FormPromotion
                     title="Create Promotion"
                     visible={modalVisible}
@@ -108,7 +101,7 @@ class ProductList extends React.Component {
                     onCancel={this.cancelBtnClicked}
                     onSubmit={this.submitBtnClicked}
                 />
-            </Row>
+            </div>
         )
     }
 }
@@ -171,4 +164,4 @@ function showDeleteConfirm() {
     });
 }
 
-export default ProductList;
+export default connect(mapStateToProps)(ProductList)

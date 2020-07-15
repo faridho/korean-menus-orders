@@ -1,1 +1,1 @@
-export const AUTHENTICATION = "AUTHENTICATION"
+export const ADD_PRODUCT = "ADD_PRODUCT"

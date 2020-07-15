@@ -1,10 +1,8 @@
-import { AUTHENTICATION } from "../constants/action-types"
+import { ADD_PRODUCT } from "../constants/action-types"
 
-export function authentication(user) {
-    const { id, email } = user
+export function addProduct(payload) {
     return { 
-        type: AUTHENTICATION, 
-        id,
-        email
+        type: ADD_PRODUCT,
+        payload
     }
 }

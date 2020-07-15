@@ -1,20 +1,18 @@
-import { AUTHENTICATION } from "../constants/action-types";
-import { combineReducers } from "redux";
+import { ADD_PRODUCT } from "../constants/action-types";
+import products from "./products";
 
-function user(state = [], action) {
-    switch (action.type) {
-        case AUTHENTICATION:
-            return [
-              ...state,
-              { id: action.id, email: action.email }
-            ]
-        default:
-            return state
-    }
+const initialState = {
+  products: products
 }
 
-const Reducers = combineReducers({
-    user
-  });
-  
-export default Reducers;
+function rootReducer(state = initialState, action) {
+  if (action.type === ADD_PRODUCT) {
+    return Object.assign({}, state, {
+      products: state.products.concat(action.payload)
+    })
+  }
+  return state
+
+}
+
+export default rootReducer;
