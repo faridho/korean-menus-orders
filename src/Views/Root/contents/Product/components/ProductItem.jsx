@@ -20,7 +20,7 @@ const ProductItem = ({ id, cover, avatar, title, description, onClickPromotion, 
                 />
             }
             actions={[
-                <Tooltip placement="bottom" title="Promtion">
+                <Tooltip placement="bottom" title="Promotion">
                     <ScissorOutlined onClick={onClickPromotion}/>
                 </Tooltip>,
                 <Tooltip placement="bottom" title="Edit">
@@ -32,7 +32,6 @@ const ProductItem = ({ id, cover, avatar, title, description, onClickPromotion, 
             ]}
         >
             <Meta
-                avatar={<Avatar src={avatar} />}
                 title={title}
                 description={description}
             />

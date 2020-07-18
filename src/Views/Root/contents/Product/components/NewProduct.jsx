@@ -2,6 +2,9 @@ import React from "react";
 import { Button, Modal, Form, Upload, Select, Input, notification } from 'antd';
 import { PlusSquareOutlined, UploadOutlined } from "@ant-design/icons";
 
+import { addProduct } from "../../../../../Redux/actions/index";
+import { connect } from "react-redux";
+
 const { Option } = Select;
 const { TextArea } = Input;
 
@@ -80,7 +83,13 @@ class NewProduct extends React.Component {
             this.openNotificationWithIcon('success')
         }, 3000)
 
-        const payload = this.state
+        const payload = {
+            cover: "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
+            title: this.state.productName,
+            description: this.state.desc
+        }
+        const { addNewProduct } = this.props
+        addNewProduct(payload)
         console.log(payload)
     }
 
@@ -107,11 +116,14 @@ class NewProduct extends React.Component {
         const column = {
             ...form
         }
+
         return (
             <div>
                 <Button icon={< PlusSquareOutlined />} key="1" type="primary" onClick={this.showModal}>
                     New Product
                 </Button>
+
+
                 <FormNewProduct
                     title="Add New Product"
                     visible={modalCreateVisible}
@@ -125,6 +137,7 @@ class NewProduct extends React.Component {
                     changePrice={this.changePrice}
                     loading={loading}
                 />
+
             </div>
         )
     }
@@ -202,4 +215,11 @@ function FormNewProduct(props) {
         </Modal>
     )
 }
-export default NewProduct;
+
+const mapDispatchToProps = dispatch => ({
+    addNewProduct: product => {
+        dispatch(addProduct(product))
+    }
+})
+
+export default connect(null, mapDispatchToProps)(NewProduct)

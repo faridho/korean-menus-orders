@@ -1,5 +1,6 @@
 import React from "react";
 import { Row, Col, PageHeader } from 'antd';
+import ErrorBoundary from "./components/ErrorBoundary";
 
 import ProductList from "./components/ProductList"
 import NewProduct from "./components/NewProduct"
@@ -20,7 +21,10 @@ class Product extends React.Component {
                         ></PageHeader>
                     </Col>
                 </Row>
-                <ProductList />
+                <ErrorBoundary>
+                    <ProductList />
+                </ErrorBoundary>
+
             </div>
         )
     }

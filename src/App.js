@@ -7,6 +7,8 @@ import UserProvider from "./UserProvider"
 import { firebaseConfig } from "./firebase"
 import * as firebase from "firebase/app";
 import "firebase/auth";
+import "firebase/firestore"
+import "firebase/storage"
 
 try {
   firebase.initializeApp(firebaseConfig);

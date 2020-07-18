@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import ProductData from "./ProductsData";
 import ProductItem from "./ProductItem";
-import ErrorBoundary from "./ProductsData";
 
 import { Button, Card, Avatar, Modal, Form, notification, Input, DatePicker } from 'antd';
 import { ExclamationCircleOutlined } from "@ant-design/icons";
@@ -73,27 +72,32 @@ class ProductList extends React.Component {
     render() {
         const { modalVisible, loading } = this.state
         const { products } = this.props
-        
+
+        if (products.length > 9) {
+            throw new Error('i crashhed')
+        }
+
         return (
             <div>
-                <ErrorBoundary>
-                    <ProductData>
-                        {
-                            products.map(item => {
-                                return (
-                                    <ProductItem
-                                        id={item.id}
-                                        cover={item.cover}
-                                        title={item.title}
-                                        description={item.description}
-                                        onClickPromotion={this.showModal}
-                                        onClickDelete={showDeleteConfirm}
-                                    />
-                                )
-                            })
-                        }
-                    </ProductData>
-                </ErrorBoundary>
+
+                <ProductData>
+                    {
+                        products.map(item => {
+                            return (
+                                <ProductItem
+                                    id={item.id}
+                                    cover={item.cover}
+                                    title={item.title}
+                                    description={item.description}
+                                    onClickPromotion={this.showModal}
+                                    onClickDelete={showDeleteConfirm}
+                                />
+                            )
+                        })
+                    }
+                </ProductData>
+
+
                 <FormPromotion
                     title="Create Promotion"
                     visible={modalVisible}

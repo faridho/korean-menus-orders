@@ -1,7 +1,5 @@
 import React from "react"
-import { Col, Card, Tooltip } from 'antd';
-import { EditOutlined, ScissorOutlined, DeleteOutlined } from "@ant-design/icons";
-const { Meta } = Card;
+import { Modal } from 'antd';
 
 class ErrorBoundary extends React.Component {
     constructor(props) {
@@ -9,11 +7,13 @@ class ErrorBoundary extends React.Component {
         this.state = {
             hasError: false
         }
+
     }
 
     static getDerivedStateFromError(error) {
         return { hasError: true };
     }
+
 
     render() {
         const colStyle = {
@@ -22,38 +22,20 @@ class ErrorBoundary extends React.Component {
 
         if (this.state.hasError) {
             return (
-                <Col span={6} style={colStyle}>
-                    <Card
-                        cover={
-                            <img
-                                alt="example"
-                                src="https://cdn.dribbble.com/users/1078347/screenshots/2799566/oops.png"
-                            />
-                        }
-                        actions={[
-                            <Tooltip placement="bottom" title="Promtion">
-                                <ScissorOutlined />
-                            </Tooltip>,
-                            <Tooltip placement="bottom" title="Edit">
-                                <EditOutlined />
-                            </Tooltip>,
-                            <Tooltip placement="bottom" title="Delete">
-                                <DeleteOutlined />
-                            </Tooltip>
-                        ]}
-                    >
-                        <Meta
-                            avatar="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-                            title="Wrong"
-                            description="Wrong"
-                        />
-                    </Card>
-                </Col>
+                { warning }
             )
         }
 
         return this.props.children;
     }
 }
+
+function warning() {
+    Modal.warning({
+        title: 'This is a warning message',
+        content: 'some messages...some messages...',
+    });
+}
+
 
 export default ErrorBoundary
