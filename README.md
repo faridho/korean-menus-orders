@@ -1,6 +1,6 @@
 # Backoffice
 
-🏢 Backoffice is a business dashboard to manage products and orders. Made by React
+🏢 Backoffice is a business dashboard to manage products and orders. Made by React.
 
 # Screnshoot
 
